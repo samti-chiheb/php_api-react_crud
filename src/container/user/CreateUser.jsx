@@ -25,11 +25,12 @@ const CreateUserForm = () => {
     e.preventDefault();
     // Perform form submission or API call to create a user
 
-    axios.post('http://localhost:8888/rimender_poo/api/users/create', userData)
-    .then(function(response){
-      console.log(response.data); 
-      navigate("/users");
-    })
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/users/create`, userData)
+      .then(function (response) {
+        console.log(response.data);
+        navigate("/users");
+      });
 
     // end of form submission
     setUserData({
@@ -50,7 +51,7 @@ const CreateUserForm = () => {
           name="username"
           value={userData.username}
           onChange={handleChange}
-          
+          required
         />
       </label>
       <br />
@@ -61,7 +62,7 @@ const CreateUserForm = () => {
           name="password"
           value={userData.password}
           onChange={handleChange}
-          
+          required
         />
       </label>
       <br />
@@ -72,7 +73,7 @@ const CreateUserForm = () => {
           name="firstname"
           value={userData.firstname}
           onChange={handleChange}
-          
+          required
         />
       </label>
       <br />
@@ -83,7 +84,7 @@ const CreateUserForm = () => {
           name="lastname"
           value={userData.lastname}
           onChange={handleChange}
-          
+          required
         />
       </label>
       <br />
@@ -94,7 +95,7 @@ const CreateUserForm = () => {
           name="email"
           value={userData.email}
           onChange={handleChange}
-          
+          required
         />
       </label>
       <br />

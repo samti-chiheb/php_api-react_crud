@@ -16,9 +16,8 @@ const CreateRecruiterForm = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8888/rimender_poo/api/users")
+      .get(`${import.meta.env.VITE_API_URL}/users`)
       .then((response) => {
-        console.log(response.data);
         setUsers(response.data);
       })
       .catch((error) => {
@@ -39,11 +38,10 @@ const CreateRecruiterForm = () => {
 
     axios
       .post(
-        "http://localhost:8888/rimender_poo/api/recruiters/create",
+        `${import.meta.env.VITE_API_URL}/recruiters/create`,
         recruiterData
       )
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
         navigate("/recruiters");
       })
       .catch((error) => {
@@ -66,6 +64,7 @@ const CreateRecruiterForm = () => {
           name="user_id"
           value={recruiterData.user_id}
           onChange={handleChange}
+          required
         >
           <option value="">--Select a User--</option>
           {users.map((user) => (
@@ -83,6 +82,7 @@ const CreateRecruiterForm = () => {
           name="name"
           value={recruiterData.name}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -93,6 +93,7 @@ const CreateRecruiterForm = () => {
           name="email"
           value={recruiterData.email}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -103,6 +104,7 @@ const CreateRecruiterForm = () => {
           name="phone"
           value={recruiterData.phone}
           onChange={handleChange}
+          required
         />
       </label>
       <br />

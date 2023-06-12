@@ -19,7 +19,7 @@ const UpdateRecruiterForm = () => {
   useEffect(() => {
     // Fetching the recruiter data
     axios
-      .get(`http://localhost:8888/rimender_poo/api/recruiters/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/recruiters/${id}`)
       .then((response) => {
         setRecruiterData(response.data);
       })
@@ -29,9 +29,8 @@ const UpdateRecruiterForm = () => {
 
     // Fetching the users
     axios
-      .get("http://localhost:8888/rimender_poo/api/users")
+      .get(`${import.meta.env.VITE_API_URL}/users`)
       .then((response) => {
-        console.log(response.data);
         setUsers(response.data);
       })
       .catch((error) => {
@@ -52,11 +51,10 @@ const UpdateRecruiterForm = () => {
 
     axios
       .put(
-        `http://localhost:8888/rimender_poo/api/recruiters/${id}/edit`,
+        `${import.meta.env.VITE_API_URL}/recruiters/${id}/edit`,
         recruiterData
       )
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
         navigate("/recruiters");
       })
       .catch((error) => {
@@ -72,6 +70,7 @@ const UpdateRecruiterForm = () => {
           name="user_id"
           value={recruiterData.user_id}
           onChange={handleChange}
+          required
         >
           <option value="">--Select a User--</option>
           {users.map((user) => (
@@ -89,6 +88,7 @@ const UpdateRecruiterForm = () => {
           name="name"
           value={recruiterData.name}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -99,6 +99,7 @@ const UpdateRecruiterForm = () => {
           name="email"
           value={recruiterData.email}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -109,6 +110,7 @@ const UpdateRecruiterForm = () => {
           name="phone"
           value={recruiterData.phone}
           onChange={handleChange}
+          required
         />
       </label>
       <br />

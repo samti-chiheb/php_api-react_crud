@@ -22,11 +22,11 @@ const CreateMissionForm = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8888/rimender_poo/api/users")
+      .get(`${import.meta.env.VITE_API_URL}/users`)
       .then((response) => setUsers(response.data));
 
     axios
-      .get("http://localhost:8888/rimender_poo/api/recruiters")
+      .get(`${import.meta.env.VITE_API_URL}/recruiters`)
       .then((response) => setRecruiters(response.data));
   }, []);
 
@@ -42,12 +42,8 @@ const CreateMissionForm = () => {
     e.preventDefault();
 
     axios
-      .post(
-        "http://localhost:8888/rimender_poo/api/missions/create",
-        missionData
-      )
-      .then(function (response) {
-        console.log(response.data);
+      .post(`${import.meta.env.VITE_API_URL}/missions/create`, missionData)
+      .then(function () {
         navigate("/missions");
       })
       .catch(function (error) {
@@ -75,7 +71,9 @@ const CreateMissionForm = () => {
         <select name="user_id" onChange={handleChange} required>
           <option>Select a user</option>
           {users.map((user) => (
-            <option key={user.id} value={user.id}>{user.username}</option>
+            <option key={user.id} value={user.id}>
+              {user.username}
+            </option>
           ))}
         </select>
       </label>
@@ -85,7 +83,9 @@ const CreateMissionForm = () => {
         <select name="recruiter_id" onChange={handleChange} required>
           <option>Select a recruiter</option>
           {recruiters.map((recruiter) => (
-            <option key={recruiter.id} value={recruiter.id}>{recruiter.name}</option>
+            <option key={recruiter.id} value={recruiter.id}>
+              {recruiter.name}
+            </option>
           ))}
         </select>
       </label>
@@ -107,7 +107,7 @@ const CreateMissionForm = () => {
       <br />
       <label>
         Location:
-        <input type="text" name="location" onChange={handleChange} />
+        <input type="text" name="location" onChange={handleChange} required />
       </label>
       <br />
       <label>
@@ -132,12 +132,18 @@ const CreateMissionForm = () => {
       <br />
       <label>
         Description:
-        <textarea name="description" onChange={handleChange} />
+        <textarea name="description" onChange={handleChange} required />
       </label>
       <br />
       <label>
         Rate:
-        <input type="number" step="0.01" name="rate" onChange={handleChange} />
+        <input
+          type="number"
+          step="0.01"
+          name="rate"
+          onChange={handleChange}
+          required
+        />
       </label>
       <br />
       <button type="submit">Create Mission</button>

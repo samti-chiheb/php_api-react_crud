@@ -10,20 +10,15 @@ const ListUser = () => {
   }, []);
 
   const getUsers = () => {
-    axios
-      .get("http://localhost:8888/rimender_poo/api/users")
-      .then((response) => {
-        console.log(response.data);
-        setUsers(response.data);
-
-        
-      })
-      ;
+    axios.get(`${import.meta.env.VITE_API_URL}/users`).then((response) => {
+      console.log(response.data);
+      setUsers(response.data);
+    });
   };
 
   const deleteUser = (id) => {
     axios
-      .delete(`http://localhost:8888/rimender_poo/api/users/${id}/delete`)
+      .delete(`${import.meta.env.VITE_API_URL}/users/${id}/delete`)
       .then((response) => {
         console.log(response.data);
         getUsers();

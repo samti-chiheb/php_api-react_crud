@@ -12,14 +12,14 @@ const ListRecruiters = () => {
 
   const getRecruiters = async () => {
     const recruitersResponse = await axios.get(
-      "http://localhost:8888/rimender_poo/api/recruiters"
+      `${import.meta.env.VITE_API_URL}/recruiters`
     );
     const recruiterData = recruitersResponse.data;
 
     // Fetch username for each recruiter
     for (let recruiter of recruiterData) {
       const userResponse = await axios.get(
-        `http://localhost:8888/rimender_poo/api/users/${recruiter.user_id}`
+        `${import.meta.env.VITE_API_URL}/users/${recruiter.user_id}`
       );
       recruiter.username = userResponse.data.username;
     }
@@ -30,9 +30,8 @@ const ListRecruiters = () => {
 
   const deleteRecruiter = (id) => {
     axios
-      .delete(`http://localhost:8888/rimender_poo/api/recruiters/${id}/delete`)
-      .then((response) => {
-        console.log(response.data);
+      .delete(`${import.meta.env.VITE_API_URL}/recruiters/${id}/delete`)
+      .then(() => {
         getRecruiters();
       });
   };

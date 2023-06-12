@@ -24,9 +24,8 @@ const UpdateMissionForm = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8888/rimender_poo/api/missions/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/missions/${id}`)
       .then(function (response) {
-        console.log(response.data);
         setMissionData(response.data);
       })
       .catch(function (error) {
@@ -34,11 +33,11 @@ const UpdateMissionForm = () => {
       });
 
     axios
-      .get("http://localhost:8888/rimender_poo/api/users")
+      .get(`${import.meta.env.VITE_API_URL}/users`)
       .then((response) => setUsers(response.data));
 
     axios
-      .get("http://localhost:8888/rimender_poo/api/recruiters")
+      .get(`${import.meta.env.VITE_API_URL}/recruiters`)
       .then((response) => setRecruiters(response.data));
   }, []);
 
@@ -54,11 +53,10 @@ const UpdateMissionForm = () => {
     e.preventDefault();
     axios
       .put(
-        `http://localhost:8888/rimender_poo/api/missions/${id}/edit`,
+        `${import.meta.env.VITE_API_URL}/missions/${id}/edit`,
         missionData
       )
-      .then(function (response) {
-        console.log(response.data);
+      .then(function () {
         navigate("/missions");
       })
       .catch(function (error) {
@@ -77,7 +75,9 @@ const UpdateMissionForm = () => {
           required
         >
           {users.map((user) => (
-            <option key={user.id} value={user.id}>{user.username}</option>
+            <option key={user.id} value={user.id}>
+              {user.username}
+            </option>
           ))}
         </select>
       </label>
@@ -91,7 +91,9 @@ const UpdateMissionForm = () => {
           required
         >
           {recruiters.map((recruiter) => (
-            <option key={recruiter.id} value={recruiter.id}>{recruiter.name}</option>
+            <option key={recruiter.id} value={recruiter.id}>
+              {recruiter.name}
+            </option>
           ))}
         </select>
       </label>
@@ -125,6 +127,7 @@ const UpdateMissionForm = () => {
           name="location"
           value={missionData.location}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -170,6 +173,7 @@ const UpdateMissionForm = () => {
           name="description"
           value={missionData.description}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -181,6 +185,7 @@ const UpdateMissionForm = () => {
           name="rate"
           value={missionData.rate}
           onChange={handleChange}
+          required
         />
       </label>
       <br />

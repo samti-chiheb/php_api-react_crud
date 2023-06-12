@@ -11,15 +11,17 @@ const ListMission = () => {
 
   const getMissions = async () => {
     const response = await axios.get(
-      "http://localhost:8888/rimender_poo/api/missions"
+      `${import.meta.env.VITE_API_URL}/missions`
     );
     const missionsData = response.data;
     for (let i = 0; i < missionsData.length; i++) {
       const userResponse = await axios.get(
-        `http://localhost:8888/rimender_poo/api/users/${missionsData[i].user_id}`
+        `${import.meta.env.VITE_API_URL}/users/${missionsData[i].user_id}`
       );
       const recruiterResponse = await axios.get(
-        `http://localhost:8888/rimender_poo/api/recruiters/${missionsData[i].recruiter_id}`
+        `${import.meta.env.VITE_API_URL}/recruiters/${
+          missionsData[i].recruiter_id
+        }`
       );
       missionsData[i].username = userResponse.data.username;
       missionsData[i].recruitername = recruiterResponse.data.name;
@@ -29,9 +31,8 @@ const ListMission = () => {
 
   const deleteMission = (id) => {
     axios
-      .delete(`http://localhost:8888/rimender_poo/api/missions/${id}/delete`)
-      .then((response) => {
-        console.log(response.data);
+      .delete(`${import.meta.env.VITE_API_URL}/missions/${id}/delete`)
+      .then(() => {
         getMissions();
       });
   };

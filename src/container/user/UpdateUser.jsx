@@ -18,7 +18,7 @@ const UpdateUserForm = () => {
   // get on user and set it as userdata
   useEffect(() => {
     axios
-      .get(`http://localhost:8888/rimender_poo/api/users/${id}`, userData)
+      .get(`${import.meta.env.VITE_API_URL}/users/${id}`, userData)
       .then(function (response) {
         console.log(response.data);
         setUserData(response.data);
@@ -39,7 +39,7 @@ const UpdateUserForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8888/rimender_poo/api/users/${id}/edit`, userData)
+      .put(`${import.meta.env.VITE_API_URL}/users/${id}/edit`, userData)
       .then(function (response) {
         console.log(response.data);
         navigate("/users");
@@ -58,6 +58,7 @@ const UpdateUserForm = () => {
           name="username"
           value={userData.username}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -68,6 +69,7 @@ const UpdateUserForm = () => {
           name="password"
           value={userData.password}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -78,6 +80,7 @@ const UpdateUserForm = () => {
           name="firstname"
           value={userData.firstname}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -88,6 +91,7 @@ const UpdateUserForm = () => {
           name="lastname"
           value={userData.lastname}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -98,6 +102,7 @@ const UpdateUserForm = () => {
           name="email"
           value={userData.email}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
